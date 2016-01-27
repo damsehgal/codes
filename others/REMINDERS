@@ -1,0 +1,8 @@
+30 DEC 2015 ->90% of current percentile on project euler ie 7.2%ile.
+31 DEC 2015->1)complete pollard rho algorithm by yourself and solve http://www.spoj.com/problems/FACT0/ and http://www.spoj.com/problems/FACT1/
+	    	 ->2)revise all the algorithms including next permutation by making it again. 
+			->3)solve 1-2 bigInteger questions of PE
+			->4)if possible ,learn katubra multiplication,square matrix exponentation 
+
+CRAM pollardRho.java
+

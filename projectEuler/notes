@@ -1,0 +1,3 @@
+cram THE PANDIGITAL CHECK GIVEN IN 44.CPP
+use #include<bits/stdc++> instead of writing alll other #includes
+use double ,ceil and float togethor in order to increase precision of floating point see 45.cpp

@@ -1,0 +1,6 @@
+to open xampp
+sudo /opt/lampp/share/xampp-control-panel/xampp-control-panel.py
+or to start in terminal use /opt/lampp/lampp start
+to stop use /opt/lampp/lampp stop
+sudo chmod 755 -R /opt/lampp/htdocs
+to get complete access of hhtdocs folder
