@@ -1,8 +1,9 @@
-#include <bits/stdc++.h>
+#inculde <bits/stdc++.h>
 using namespace std;
 long long f(std::vector<int>& v,std::vector<int>& b,int i,std::vector<int>& cunt){
 	if(i<v[0])return 0;
 	if(b[i-1]!=0)return b[i];
+
 	long long sum=0;
 	for(int lm=0;lm<cunt.size();lm++)
 		{

@@ -15,55 +15,36 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
-	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+
+long long int ans(std::vector<long long int>& v,int n){
 	
+	long long int sum1=0,sum2=0;
+	std::vector<int> aalo;
+	forall(i,0,n/2)
+	{
+		sum1+=v[i];
+	}
+	aalo.pb(sum1);
+	forall(i,0,n/2)
+	{
+		aalo.pb(sum1-v[(n/2)-i-1]+v[n-i-1]);
+	}
+	//cout<<sum1<<" "<<sum2<<" ";
+	return maximum(all(aalo));
 }
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return 0;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
 int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+{
+	int n,k;
+	s(n);s(k);
+	long long int MA=0;
+		long long int lm=0;
+	forall(i,0,k){
+		std::vector<long long int> v(n);
+		forall(j,0,n)cin>>v[j];
+		lm=ans(v,n);
+		if(lm>MA)MA=lm;
+	}
+	cout<<MA;
 	return 0;
 }

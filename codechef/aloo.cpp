@@ -15,55 +15,35 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+bool IsPrime(int n){
+	if(n<2)return false;
+	if(n==2 || n==3 )return true;
+	if(n%2==0)return false;
+	if(!(n%6==1 || n%6==5))return false;
+	forall(i,5,(int)sqrt(n)+1){
+		if(n%i==0)return false;
 	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
+	return true;
 }
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return 0;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
 int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+{
+	int t;
+	WHILE(t){
+	s(t);
+	int a, b,c;
+		s(a);s(b);s(c);
+		int n,S1=0,S2=0;
+		s(n);
+
+		forall(i,0,n){
+			int x,y;
+			if(a*x+b*y+c>0)S1++;
+			else if(a*x+b*y+c<0)S2++;
+			else {S1++;S2++;}
+		}
+		cout<<max(S1,S2)<<"\n";
+
+	}
 	return 0;
 }

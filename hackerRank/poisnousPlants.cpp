@@ -15,55 +15,40 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
-	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
-}
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return 0;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
 
-
+struct Plant
+{
+	int index;
+	int data;
+};
 
 int main(int argc, char const *argv[])
-{	int n;
+{
+	int n,ans=0;
 	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+	std::vector<Plant> v(n);
+	stack<Plant>MyStack;
+	forall(i,0,n){
+		s(v[i].data);
+		v[i].index=i;
+
+	}
+	forall(i,0,n-1){
+		if(v[i].data>v[i+1].data)
+			ans--;
+		else
+			break;
+	}
+	forall(i,0,n-1){
+		if(v[i].data<v[i+1].data)
+			MyStack.push(v[i+1]);
+		else{ MyStack.pop();
+			if(MyStack.empty()){
+				ans++;
+			}
+		}
+	}
+	cout<<ans;
 	return 0;
 }

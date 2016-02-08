@@ -7,7 +7,6 @@ using namespace std;
 #define ss(n)                       scanf("%s",n)
 #define forall(i,a,b)               for(int i=a;i<b;i++)
 #define foreach(v, c)               for( typeof( (c).begin()) v = (c).begin();  v != (c).end(); ++v)
-#define inputN(i,a)					for(int i=0;i<a.size();i++) scanf("%d",&a[i])
 #define all(a)                      a.begin(), a.end()
 #define WHILE(n)					while(n--)
 #define INF                         (int)1e9
@@ -15,55 +14,57 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
-	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
-}
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return 0;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
 int main(int argc, char const *argv[])
-{	int n;
+{
+	int n,q;
 	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+	long long v[n][n];
+	forall(i,0,n)forall(j,0,n)v[i][j]=INF;
+
+	s(q);
+	forall(i,0,q){
+		int a,b,dist;
+		s(a);s(b);s(dist);
+		a--;
+		b--;
+		v[a][b]=dist;
+		v[b][a]=dist;
+	}
+	//forall(i,0,n){forall(j,0,n){cout<<v[i][j]<<" ";}cout<<"\n";}
+	long sum=0;
+	std::vector<int> a;
+	a.pb(0);
+	for (int i = 0; i < n; ++i)
+	{	int min=INF-1,minI=-1;
+		forall(lm,0,a.size()){
+			//cout<<a[lm]<<" ";
+			for (int j = 1; j < n; j++)
+			{
+				cout<<v[a[lm]][j]<<" ";	
+				if(v[a[lm]][j]<min)
+				{	
+					min=v[a[lm]][j];
+					minI=j;
+					//cout<<minI<<" ;";
+				}
+				//cout<<v[a[lm]][j]<<" ;";
+			}
+		}
+			if(minI!=-1){a.pb(minI);
+			forall(ka,0,n)v[minI][ka]=INF;
+			}
+			else break;	
+			cout<<"\n";
+			//cout<<" "<<minI<<"\n";		
+			
+		
+		
+		
+			sum+=min;
+
+			
+	}
+	cout<<sum;
 	return 0;
 }

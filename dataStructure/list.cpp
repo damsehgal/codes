@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 struct Node{
 	int data;
@@ -38,11 +39,12 @@ void create(Node* head,Node* tail,int d){
 }
 int main(int argc, char const *argv[])
 {
+
 	Node* head;
 	Node* tail;
 	create(head,tail,12);
-	//InsertAtBegin(head,tail,21);
-	//InsertAtEnd(head,tail,32);
-	//cout<<Length(head,tail); 
+	InsertAtBegin(head,tail,21);
+	InsertAtEnd(head,tail,32);
+	cout<<Length(head,tail); 
 	return 0;
 }

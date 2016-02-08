@@ -7,63 +7,36 @@ using namespace std;
 #define ss(n)                       scanf("%s",n)
 #define forall(i,a,b)               for(int i=a;i<b;i++)
 #define foreach(v, c)               for( typeof( (c).begin()) v = (c).begin();  v != (c).end(); ++v)
-#define inputN(i,a)					for(int i=0;i<a.size();i++) scanf("%d",&a[i])
 #define all(a)                      a.begin(), a.end()
 #define WHILE(n)					while(n--)
 #define INF                         (int)1e9
 #define pb                          push_back
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
+#define FILLarr(a,n,va)				for(int i=0;i<n;i++)a[i]=va;	
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+int ANS(int x){
+	int l=1,km=x;
+	int count=0;
+
+	while(x/l){
+		l*=2;
+		count++;
 	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
+	x-=pow(2,count-1);
+	if(x==0)return km;
+	x*=2;
+	return x;
 }
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return 0;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
 int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+{
+	int Q;
+	s(Q);
+	WHILE(Q){
+		long long int x;
+		sl(x);
+		cout<<ANS(x)<<"\n";
+	}
 	return 0;
 }

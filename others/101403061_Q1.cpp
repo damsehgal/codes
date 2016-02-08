@@ -116,6 +116,7 @@ void print(std::vector<int>& v){
 }
 int main(int argc, char const *argv[])
 {	
+	//MAIN ->PROGRAM STARTS HERE
 	std::vector<int> v;
 	cout<<"insert elements press -1 to exit\n";
 	int t;

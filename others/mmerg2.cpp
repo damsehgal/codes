@@ -1,22 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-//now make insertion sort for length<10
-void swap(int& a,int& b){
-	a^=b^=a^=b;
-}
-int cunt;
-// void insertion(std::vector<int>& v){
-	
-// 	for (int i = 0; i < v.size()-1; ++i)
-// 	{	
-// 		int j=i+1;
-// 		while(v[j]<v[j-1]){
-// 			swap(v[j],v[j-1]);
-// 			j--;
-// 		}
-// 	}
 
-// }
 void MERGE(std::vector<int>& v,std::vector<int>& l,std::vector<int>& r){
 	int i=0,j=0,k=0;
 	while(i<l.size() && j<r.size()){
@@ -40,9 +24,7 @@ void MERGE(std::vector<int>& v,std::vector<int>& l,std::vector<int>& r){
 		v[k]=r[j];
 		j++;
 		k++;
-	}
-
-	// for(int i=0;i<r.size();i++)v.push_back(r[i]);	
+	}	
 }
 void MERGESORT(std::vector<int>& v){
 	if(v.size()<2)return;
@@ -56,16 +38,43 @@ void MERGESORT(std::vector<int>& v){
 	MERGESORT(r);
 	MERGE(v,l,r);
 }
+void print(std::vector<int>& v){
+	for (int i = 0; i < v.size(); ++i)
+	{
+		cout<<v[i]<<" ";
+	}
+}
+void quick_sort (std::vector<int>& a) {
+    int i, j, p, t;
+    int n=v.size();
+    if (n < 2)
+        return;
+    p = a[n / 2];
+    for (i = 0, j = n - 1;; i++, j--) {
+        while (a[i] < p)
+            i++;
+        while (p < a[j])
+            j--;
+        if (i >= j)
+            break;
+        t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    quick_sort(a, i);
+    quick_sort(a + i, n - i);
+}
+
+
 int main(int argc, char const *argv[])
 {
-	cunt=0;
+
 	std::vector<int> v(5);
 	srand(time(NULL));
 	for(int i=0;i<5;i++){v[i]=(rand()%15);cout<<v[i]<<" ";}
-
 	MERGESORT(v);
 	cout<<"\n";
-	for (int i = 0; i < v.size(); ++i)cout<<v[i]<<" ";
-		cout<<"\n"<<cunt;	return 0;
+	print(v);
+	return 0;
 	
 }

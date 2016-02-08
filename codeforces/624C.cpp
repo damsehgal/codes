@@ -15,55 +15,59 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+bool ifSame(std::vector<bool>& v1,std::vector<bool> v2,int l1,int l2){
+	for(int i=0;i<v1.size();i++){
+		if(v1[i]!=v2[i] && i!=l1 && i!=l2)
+			return false;
 	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
+	return true;
 }
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return 0;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
 int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+{
+	int n,m;
+	cin>>n>>m;
+	string s="";
+	char c[n];
+	c[0]='a';
+	int count=0;
+	vector<vector <bool> >arr;
+	forall(i,0,n){
+		std::vector<bool> v(n);
+		forall(j,0,n)v[j]=false;
+		arr.pb(v);
+	}
+	forall(i,0,m){
+		int a,b;
+		cin>>a>>b;
+		a--;b--;
+		arr[a][b]=true;
+		arr[b][a]=true;
+	}
+	forall(i,0,n){forall(j,0,n){cout<<arr[i][j]<<" ";}cout<<"\n";}
+	char current='a';
+	forall(i,0,n){
+		forall(j,i+1,n){
+			if(ifSame(arr[i],arr[j],i,j))
+			{
+			
+				c[j]=c[i];
+			}
+			else {
+				cout<<i<<" ;"<<j<<" "<<	current<<"\n";
+				c[j]=current;
+				current++;
+				
+				count++;
+			}
+			
+		}
+	}
+	if(count>3){cout<<"No";forall(i,0,n)cout<<c[i];}
+	else {
+		cout<<"Yes\n";
+		forall(i,0,n)cout<<c[i];
+	}
 	return 0;
 }
+	

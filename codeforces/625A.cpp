@@ -2,7 +2,7 @@
 using namespace std;
 #define s(n)                        scanf("%d",&n)
 #define sc(n)                       scanf("%c",&n)
-#define sl(n)                       scanf("%lld",&n)
+//#define sl(n)                       scanf("%lld",&n)
 #define sf(n)                       scanf("%lf",&n)
 #define ss(n)                       scanf("%s",n)
 #define forall(i,a,b)               for(int i=a;i<b;i++)
@@ -15,55 +15,31 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
-	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
-}
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return 0;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
 int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+{
+	long long int n,a,b,c;
+	cin>>n>>a>>b>>c;
+	if(a>n && b>n)cout<<0;
+	if(b<=n){
+	if(a<=b-c){
+		cout<<n/a;
+	}
+	else if(a>b-c)
+	{int cunt=0,curr=b;
+		// while(n>=curr){
+		// 	cunt++;
+		// 	n-=n/(b-c);
+		// 	//cout<<n<<";";
+		// }
+		if(n-((n-b)/(b-c))>=b)
+			cout<<(n-b)/(b-c)+1;
+		else cout<<(n-b)/(b-c);
+		}
+	}
+	if(a<n && b>n){
+		cout<<n/a;
+	}
+
 	return 0;
 }
