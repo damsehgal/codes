@@ -16,61 +16,22 @@ using namespace std;
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
 template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
-struct Node{
-	int data;
-	Node* parent;
-	int rank;
-};
-Node* makeSet(int data){
-	Node* dummy=new Node();
-	dummy->parent=dummy;
-	dummy->data=data;
-	dummy->rank=0; 
-	return dummy;
-}
-Node* findSet(Node* n){
-	if(n->parent==n)return n;
-
-	return n->parent=findSet(n->parent);
-}
-void Union(Node* n1,Node* n2){
-	Node* PARENT1 =findSet(n1);
-	Node* PARENT2 =findSet(n2);
-	if(PARENT1->rank==PARENT2->rank){
-		PARENT1->rank++;
-		PARENT2->rank=0;
-		PARENT2->parent=PARENT1;
-	}
-	else if(PARENT1->rank>PARENT2->rank){
-		PARENT2->parent=PARENT1;
-	}
-	else PARENT1->parent=PARENT2;
-}
 int main(int argc, char const *argv[])
 {
-	int t;
-	s(t);WHILE(t){
-		int n;
-		s(n);
-		int x,y;
-		s(x);s(y);
-		makeSet(x);
-		makeSet(y);
+	int n;
+	s(n);
+	std::vector<int> v(n);
+	forall(i,0,n)s(v[i]);
+	std::vector<int> allo(v);
+	int ans=0;
+	forall(i,0,n){
+		int temp=v[i];
+		forall(j,i+1,n){
+
+			temp^=v[j];
+			allo.pb(temp);
+		}
 	}
-	// int nodes,edges;
-	// cin>>nodes>>edges;
-	// std::vector<Node*> v(nodes);
-	// for(int i=0;i<nodes;i++){
-	// 	v[i]=makeSet(i+1);
-	// }
-	// for (int i = 0; i < edges; ++i)
-	// {
-	// 	int first,second;
-	// 	cin>>first>>second;
-	// 	if(findSet(v[first-1])!=findSet(v[second-1]))
-	// 		Union(v[first-1],v[second-1]);
-	// 	else cycles++;
-	// }
-	// cout<<cycles;
-	// return 0;
+	cout<<maximum(allo);
+	return 0;
 }

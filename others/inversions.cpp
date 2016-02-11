@@ -46,7 +46,7 @@ void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
 	
 }
 void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return 0;
+	if(v.size()<2)return ;
 	int mid=v.size()/2;
 	std::vector<int> l(mid),r(v.size()-mid);
 	for(int i=0;i<mid;i++)l[i]=v[i];

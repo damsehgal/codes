@@ -1,3 +1,23 @@
+/*  6 8
+	1 2
+	1 3
+	2 3				->Sample Input for the graph give n below
+	2 4
+	3 4
+	3 5
+	4 6
+	5 6
+
+
+
+	[1]---[2]-----[4]
+	  \   /		 / \	   
+	   [3]______/  \
+		 \		   \
+		 [5]-------[6]	
+*/
+
+
 #include <bits/stdc++.h>
 using namespace std;
 struct Node{
@@ -33,6 +53,7 @@ void Union(Node* n1,Node* n2){
 
 int main(int argc, char const *argv[])
 {//considering 1 based indexing
+
 	int nodes,edges,cycles=0;
 	cin>>nodes>>edges;
 	std::vector<Node*> v(nodes);

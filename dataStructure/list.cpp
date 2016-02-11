@@ -31,12 +31,42 @@ void InsertAtBegin(Node* head,Node* tail,int d){
 	 head=newNode->pre;
 	 newNode->data=d;
 }
+void Insert(Node* head,int pos,int data){
+	Node* dummy=new Node();
+	dummy->data=data;
+	for (int i = 0; i < pos-1; ++i)
+	{
+		dummy=dummy->next;
+		dummy->pre=dummy->next->pre;
+	}
+	
+
+}
 void create(Node* head,Node* tail,int d){
 	Node* first;
 	newNode->pre=head->next;
 	newNode->next=tail->pre;
 	newNode->data=d;
 }
+Node* DeleteAtHead(Node* head){
+	head=head->next;
+	head->pre=NULL;
+	return head;
+}
+Node* DeleteAtTail(Node* tail){
+	tail=tail->pre;
+	tail->next=NULL;
+	return tail;
+}
+void Delete(Node* head,Node* tail,int pos){
+	Node* dummy=head;
+	for (int i = 0; i < pos-1; ++i)
+	{
+		dummy=dummy->next;
+	}
+	dummy=dummy->next->next;
+}
+
 int main(int argc, char const *argv[])
 {
 

@@ -16,61 +16,41 @@ using namespace std;
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
 template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
-struct Node{
-	int data;
-	Node* parent;
-	int rank;
-};
-Node* makeSet(int data){
-	Node* dummy=new Node();
-	dummy->parent=dummy;
-	dummy->data=data;
-	dummy->rank=0; 
-	return dummy;
-}
-Node* findSet(Node* n){
-	if(n->parent==n)return n;
-
-	return n->parent=findSet(n->parent);
-}
-void Union(Node* n1,Node* n2){
-	Node* PARENT1 =findSet(n1);
-	Node* PARENT2 =findSet(n2);
-	if(PARENT1->rank==PARENT2->rank){
-		PARENT1->rank++;
-		PARENT2->rank=0;
-		PARENT2->parent=PARENT1;
+	int n;
+float sum(int i,std::vector<std::vector<float> >& v,std::vector<float>& ans){
+	float sum=0;
+	forall(j,i+1,n){
+		sum+=v[i][j]*ans[j];
 	}
-	else if(PARENT1->rank>PARENT2->rank){
-		PARENT2->parent=PARENT1;
-	}
-	else PARENT1->parent=PARENT2;
+	return sum;
 }
 int main(int argc, char const *argv[])
 {
-	int t;
-	s(t);WHILE(t){
-		int n;
-		s(n);
-		int x,y;
-		s(x);s(y);
-		makeSet(x);
-		makeSet(y);
+	s(n);
+	std::vector<std::vector<float> > v(n);
+	std::vector<float> ans(n);
+	forall(i,0,n)
+	{
+		std::vector<float> temp(n+1);
+		forall(j,0,n+1){
+			cin>>temp[j];
+		}
+		v[i]=temp;
 	}
-	// int nodes,edges;
-	// cin>>nodes>>edges;
-	// std::vector<Node*> v(nodes);
-	// for(int i=0;i<nodes;i++){
-	// 	v[i]=makeSet(i+1);
-	// }
-	// for (int i = 0; i < edges; ++i)
-	// {
-	// 	int first,second;
-	// 	cin>>first>>second;
-	// 	if(findSet(v[first-1])!=findSet(v[second-1]))
-	// 		Union(v[first-1],v[second-1]);
-	// 	else cycles++;
-	// }
-	// cout<<cycles;
-	// return 0;
+	/*forall() now make upper triangular matrix*/
+	
+	forall(i,1,n){
+		forall(j,0,n+1){
+			v[i][j]-=((v[i][0]/v[0][0])*v[0][j]);
+		}
+	}
+	forall(j,0,n+1){
+		v[2][j]-=(v[2][1]/v[1][1])*v[1][j];
+	}
+	ans[2]=v[2][2];
+	forall(i,0,n){
+		ans[i]=(1/(v[i][i]))*(v[i][n])-sum(i,v,ans);
+	}
+	forall(i,0,ans.size())cout<<ans[i]<<" ";
+	return 0;
 }
