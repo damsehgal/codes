@@ -14,17 +14,47 @@ using namespace std;
 #define pb                          push_back
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
-template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
+int NC2 (int n)
+{
+	return (n*(n-1))/2;
+}
 int main(int argc, char const *argv[])
-// {
-// 	int n;
-// 	s(n);
-// 	std::vector<int> v(n);
-// 	forall(i,0,n)s(v[i]);
-// 	int i=0;
-// 	for(;i<n-1;i++)
-// 		if(v[i]<v[i+1])break;
-// 	cout<<n-i;	
-// 	return 0;
-// }
+{
+	int t;
+	s(t);
+	std::vector<std::vector<int> > v(t);
+	forall(i,0,t){
+		std::vector<int> temp(t);
+		forall(j,0,t){
+			char c;
+			cin>>c;
+			if(c=='C')
+				temp[j]=1;
+			else
+				temp[j]=0;
+		}
+		v[i]=temp;
+	}
+	long long sum=0;
+	forall(i,0,t)
+	{
+		int cumt=0;
+		forall(j,0,t){
+			if(v[i][j]==1)
+				cumt++;
+		}
+		cumt=NC2(cumt);
+		sum+=cumt;	
+	}
+	forall(i,0,t){
+		int cumt=0;
+		forall(j,0,t){
+			if(v[j][i]==1)
+				cumt++;
+		}
+		cumt=NC2(cumt);
+		sum+=cumt;
+	}
+	cout<<sum;
+	return 0;
+}

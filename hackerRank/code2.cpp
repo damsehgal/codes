@@ -15,55 +15,53 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-long long int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+
+int F[1047][1047];
+ 
+
+void update(int x, int y, int v) {
+	
+			F[x-1][y-1]+=v;
+}
+ 
+int getRect(int x1, int y1, int x2, int y2) {
+	int sum=0;
+	forall(i,x1,x2+1)
 	{
-		if(a[i]<=b[j])
+		forall(j,y1,y2+1)
 		{
-			v[k]=a[i];
-			i++;
+			sum+=F[i][j];
+			cout<<F[i][j]<<" ";
+		}
+	}
+	return sum;
+}
+ 
+int main() {
+	int tt;
+	s(tt);
+	WHILE(tt){
+	int n,t;
+	s(n);s(t);
+	forall(i,0,n){
+		forall(j,0,n){
+			s(F[i][j]);
+		}
+	}
+	forall(i,0,t){
+		char S;
+		cin>>S;
+		int x,y,x1,y1,val;
+		if(S=='U'){
+			s(x);(y);s(val);
+			update(x-1,y-1,val);
 		}
 		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
+			s(x);(y);s(x1);s(y1);
+			cout<<"\n"<<getRect(x-1,y-1,x1-1,y1-1);
 		}
-		k++;
+	  	}
 	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
-}
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return ;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
-int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
 	return 0;
 }

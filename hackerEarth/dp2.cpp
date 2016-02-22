@@ -1,3 +1,9 @@
+/*
+	Finding the number of ways to reach from a starting position to an ending position
+	travelling in specified directions only.
+	Let it be right and up.
+	if in all 4 directions then INF
+*/
 #include <bits/stdc++.h>
 using namespace std;
 #define s(n)                        scanf("%d",&n)
@@ -10,37 +16,29 @@ using namespace std;
 #define inputN(i,a)					for(int i=0;i<a.size();i++) scanf("%d",&a[i])
 #define all(a)                      a.begin(), a.end()
 #define WHILE(n)					while(n--)
-#define INF                         (int)1e9
 #define pb                          push_back
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
-template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+typedef long long ll;
+typedef long double ld;
+const int INF = 0x3f3f3f3f, MOD = 1e9 + 7;
+ll gcd (ll a, ll b) {return ( a ? gcd(b%a, a) : b );}
+ll power(ll a, ll n) {ll p = 1;while (n > 0) {if(n%2) {p = p * a;} n >>= 1; a *= a;} return p;}
+ll power(ll a, ll n, ll mod) {ll p = 1;while (n > 0) {if(n%2) {p = p * a; p %= mod;} n >>= 1; a *= a; a %= mod;} return p % mod;}
 int main(int argc, char const *argv[])
 {
-	int x,y;
-	s(x);s(y);
-	if(x==y)cout<<0;
-	else{
-		int gcd=__gcd(x,y);
-		else {int cnt=0;
-			int lm=y/gcd;
-			int mn=x/gcd;
-			
-			while(lm%2==0){lm/=2;cnt++;}
-			while(lm%5==0){lm/=5;cnt++;}
-			while(lm%3==0){lm/=3;cnt++;}
-			while(mn%2==0){mn/=2;cnt++;}
-			while(mn%5==0){mn/=5;cnt++;}
-			while(mn%3==0){mn/=3;cnt++;}
-			cout<<cnt;
-			 // if(!(lm%2==0 || lm%5==0 || lm%3==0))
-			 // 	{cout<<-1;
-			 // 	return 0;}
-			 //  if(!(mn%2==0 || mn%5==0 || mn%3==0))
-			 // 	{cout<<-1;
-			 // 	return 0;}	
-		}
-	}
+	int Rows,Cols;
+	s(Rows);s(Cols);
+	int ans[Rows][Cols];
+	forall(i,0,Rows)
+		ans[i][0]=1;
+	forall(i,0,Cols)
+		ans[i][0]=1;
+	forall(i,1,Rows)
+		forall(j,1,Cols)
+			ans[i][j]=ans[i-1][j]+ans[i][j-1];
+	int posX,posY;//0 based index
+	s(posX);s(posY);
+	cout<<ans[posX][posY];
 	return 0;
 }

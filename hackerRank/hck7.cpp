@@ -18,29 +18,52 @@ template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b
 template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
 int main(int argc, char const *argv[])
 {
-	int x,y;
-	s(x);s(y);
-	if(x==y)cout<<0;
-	else{
-		int gcd=__gcd(x,y);
-		else {int cnt=0;
-			int lm=y/gcd;
-			int mn=x/gcd;
-			
-			while(lm%2==0){lm/=2;cnt++;}
-			while(lm%5==0){lm/=5;cnt++;}
-			while(lm%3==0){lm/=3;cnt++;}
-			while(mn%2==0){mn/=2;cnt++;}
-			while(mn%5==0){mn/=5;cnt++;}
-			while(mn%3==0){mn/=3;cnt++;}
-			cout<<cnt;
-			 // if(!(lm%2==0 || lm%5==0 || lm%3==0))
-			 // 	{cout<<-1;
-			 // 	return 0;}
-			 //  if(!(mn%2==0 || mn%5==0 || mn%3==0))
-			 // 	{cout<<-1;
-			 // 	return 0;}	
-		}
+	int t;
+	s(t);
+	WHILE(t){
+		int n;
+		s(n);
+		std::vector<int> v(n);
+		forall(i,0,n)s(v[i]);
+		sort(all(v));
+        vector<int>temp(v);
+		int i=n-1,cunt=0;
+		while(i){
+			if(v[i]-v[0]>=5)
+            {
+                v[i]-=5;
+                cunt++;
+            }
+            else if(v[i]-v[0]>=2 &&v[i]-v[0]<5)
+            {
+                v[i]-=2;
+                cunt++;
+            }
+			else if(v[i]!=v[0])
+            {   cunt++;
+                v[i]--;
+            }
+			if(v[i]==v[0])i--;
+		}	
+        int j=0,cunt2=0;
+        while(j<n){
+            if(temp[n-1]-temp[j]>=5)
+            {
+                cunt2++;
+                temp[j]+=5;
+            }
+            else if(temp[n-1]-temp[j]>=2 &&temp[n-1]-temp[j]<5)
+            {
+                temp[j]+=2;
+                cunt2++;
+            }
+            else if(temp[n-1]!=temp[j]){
+                temp[j]--;
+                cunt2++;
+            }
+            else j++;
+        }
+		cout<<min(cunt,cunt2)<<"\n";
 	}
 	return 0;
 }

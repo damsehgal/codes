@@ -1,0 +1,19 @@
+
+			Gauss elimination method
+m=a[J][i]/a[i][i]
+a[j][k]=a[j][k]-m*a[i][k]
+
+
+
+1) enter hte no of eqns from  user 
+2) enter the elements of agumented matrix rowwise
+3)calc multipliers using formula at line 3
+4) find the uppper triangular matrix using forula at line 4
+5) compute X[n]=a[n][n+1]/a[n][n]
+x[i]= (1/a[i][i])(a[i][n+1]-((sigma j=i+1 to n) a[i][j]*x[j]))
+6) print the reqd solutiion x[i] -->i=[i,n]
+
+
+a11x1+a12x2+a13x3=a14
+a12x1+a22x2+a13x3=a24
+a31x1+a32x2+a13x3=a34

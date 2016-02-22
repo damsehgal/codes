@@ -14,56 +14,32 @@ using namespace std;
 #define pb                          push_back
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
+
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-long long int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<=b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
-	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+long double pi=M_PI;
+struct cake
+{
+	int number;
+	int radius;
+	int height;
+	long double vol=pi*radius*radius*height;
+};
+bool compare(const cake& a,const cake& b){
+	return(a.vol<b.vol && a.number < b.number);
 }
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return ;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
 int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+{
+	/* code */
+	int t;
+	s(t);
+	std::vector<cake> v(t);
+	forall(i,0,t){
+		v[i].number=i;
+		s(v[i].radius);
+		s(v[i].height);
+	}
+	sort(all(v),compare);
+	forall(i,0,t)cout<<v[i].vol<<"\n";
 	return 0;
 }

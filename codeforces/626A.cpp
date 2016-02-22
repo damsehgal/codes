@@ -15,55 +15,56 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-long long int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<=b[j])
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+struct point
+{
+	int up;
+	int right;
+};
+bool equals(const point& a ,const point& b){
+	if(a.up==b.up && a.right==b.right)return true;
+	return false;
+
+}
+int cunt(std::vector<point>& v ,point temp){
+	int cnt=0;
+	forall(i,0,v.size())
+		if(equals(v[i],temp))cnt++;
+	return cnt;
+}
+int main(int argc, char const *argv[])
+{
+	int n;s(n);
+	string s;cin>>s;
+	std::vector<point> v(n+1);
+	v[0].up=0;
+	v[0].right=0;
+	forall(i,0,n){
+		if(s[i]=='L')
 		{
-			v[k]=a[i];
-			i++;
+			v[i+1].right=v[i].right-1;
+			v[i+1].up=v[i].up;
+			//Map[v[i+1]]++;	
 		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
+		else if(s[i]=='R'){
+			v[i+1].right=v[i].right+1;
+			v[i+1].up=v[i].up;	
+		
 		}
-		k++;
+		else if(s[i]=='U'){
+			v[i+1].up=v[i].up+1;
+			v[i+1].right=v[i].right;	
+			
+		}
+		else if(s[i]=='D'){
+			v[i+1].up=v[i].up-1;
+			v[i+1].right=v[i].right;	
+			
+		}
 	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
+	forall(i,0,n+1){
+		cout<<v[i].up<<" "<<v[i].right<<" "<<cunt(v,v[i])<<"\n";
 	}
 	
-}
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return ;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
-int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
 	return 0;
 }

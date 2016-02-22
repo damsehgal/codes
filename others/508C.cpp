@@ -15,55 +15,54 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-long long int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<=b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
-	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+int main(int argc, char const *argv[])
+{
+	int ghost,time,candle;
+	s(ghost);s(time);s(candle);
+	int sum=0;
+	std::vector<int> v(ghost),cum(ghost,0);
+		
+	forall(i,1,ghost){
+		s(v[i-1]);
+		sum+=v[i-1];
+		cum[i]+=sum;
 	}
 	
-}
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return ;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
-int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+	if(ghost==1){
+		if(time<candle)cout<<-1;
+		else cout<<candle;
+	}
+	else{
+		int temp=v[0]-(candle);
+		int i=0,cunt=0,lambda=0;
+		while(i<ghost)
+		{	cout<<temp<<";"<<v[i]<<"\n";
+			if(temp>v[i])
+				i++;
+			else if(v[i+1]-temp>time){
+				temp=v[i+1]-(candle-1);
+				i++;
+				cunt+=candle;
+				cout<<"aalo\n";
+			}
+			else 
+			{	
+				if(v[i+1]+time>v[ghost-1]){
+					temp+=v[ghost-1]-v[i+1];
+					cunt+=candle-(v[i+1]+time-v[ghost-1]);
+					lambda++;
+					if(lambda>10)return 0;
+					i++;
+					cout<<"annsalkaadslnlas";
+				}
+				else{	
+					temp+=time;
+					cunt+=candle;
+				}
+			}
+		}
+		cout<<cunt;
+	}
 	return 0;
 }

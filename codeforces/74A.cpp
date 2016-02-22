@@ -15,55 +15,35 @@ using namespace std;
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-long long int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<=b[j])
-		{
-			v[k]=a[i];
-			i++;
-		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
-	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+struct coder
+{
+	string name;
+	int su,us,a,b,c,d,e,total;
+};
+bool compare(const coder& a,const coder& b){
+	return a.total>b.total;
 }
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return ;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
 int main(int argc, char const *argv[])
-{	int n;
-	s(n);
-	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+{
+	int t;
+	s(t);
+	std::vector<coder> v(t);
+	forall(i,0,t){
+		cin>>v[i].name;
+		s(v[i].su);
+		v[i].su*=100;
+		s(v[i].us);
+		v[i].us*=50;
+		s(v[i].a);
+		s(v[i].b);
+		s(v[i].c);
+		s(v[i].d);
+		s(v[i].e);
+		v[i].total=v[i].su-v[i].us+v[i].a+v[i].b+v[i].c+v[i].d+v[i].e;	
+		//cout<<v[i].total<<" ";
+	}
+	sort(all(v),compare);
+	cout<<v[0].name;
 	return 0;
 }

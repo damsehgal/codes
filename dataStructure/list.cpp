@@ -1,77 +1,59 @@
 #include <iostream>
 
 using namespace std;
-struct Node{
+struct Dnode{
 	int data;
-	Node* next;
-	Node* pre;
+	Dnode* next;
+	Dnode* pre;
 };
-int Length(Node* head,Node* tail){
+int Length(Dnode* head,Dnode* tail){
 	int length=0;
-	Node* newNode;
-	newNode->next=head;
-	while(newNode->next!=tail){
-		newNode=newNode->next;
+	Dnode* newDnode;
+	newDnode->next=head;
+	while(newDnode->next!=tail){
+		newDnode=newDnode->next;
 		length++;
 	}
 	return length;
 }
-void InsertAtEnd(Node* head,Node* tail,int d){
-	Node* newNode;
-	newNode->pre=tail->pre;
-	tail->pre->next=newNode->pre;
-	newNode->next=tail->pre;
-	tail->pre=newNode->next;
-	newNode->data=d;
+void InsertAtEnd(Dnode* head,Dnode* tail,int d){
+	Dnode* newDnode;
+	newDnode->pre=tail->pre;
+	tail->pre->next=newDnode->pre;
+	newDnode->next=tail->pre;
+	tail->pre=newDnode->next;
+	newDnode->data=d;
 }
-void InsertAtBegin(Node* head,Node* tail,int d){
-	 Node* newNode;
-	 newNode->pre=head;
-	 newNode->next=head->next;
-	 head=newNode->pre;
-	 newNode->data=d;
+void InsertAtBegin(Dnode* head,Dnode* tail,int d){
+	 Dnode* newDnode;
+	 newDnode->pre=head;
+	 newDnode->next=head->next;
+	 head=newDnode->pre;
+	 newDnode->data=d;
 }
-void Insert(Node* head,int pos,int data){
-	Node* dummy=new Node();
-	dummy->data=data;
-	for (int i = 0; i < pos-1; ++i)
-	{
-		dummy=dummy->next;
-		dummy->pre=dummy->next->pre;
-	}
-	
-
+void create(Dnode* head,Dnode* tail,int d){
+	Dnode* first;
+	newDnode->pre=head->next;
+	newDnode->next=tail->pre;
+	newDnode->data=d;
 }
-void create(Node* head,Node* tail,int d){
-	Node* first;
-	newNode->pre=head->next;
-	newNode->next=tail->pre;
-	newNode->data=d;
-}
-Node* DeleteAtHead(Node* head){
+Dnode* DeleteAtHead(Dnode* head){
 	head=head->next;
 	head->pre=NULL;
 	return head;
 }
-Node* DeleteAtTail(Node* tail){
+Dnode* DeleteAtTail(Dnode* tail){
 	tail=tail->pre;
 	tail->next=NULL;
 	return tail;
 }
-void Delete(Node* head,Node* tail,int pos){
-	Node* dummy=head;
-	for (int i = 0; i < pos-1; ++i)
-	{
-		dummy=dummy->next;
-	}
-	dummy=dummy->next->next;
-}
+
 
 int main(int argc, char const *argv[])
 {
 
-	Node* head;
-	Node* tail;
+	Dnode* head;
+	Dnode* tail;
 	create(head,tail,12);
 	InsertAtBegin(head,tail,21);
 	InsertAtEnd(head,tail,32);

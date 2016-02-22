@@ -10,60 +10,48 @@ using namespace std;
 #define inputN(i,a)					for(int i=0;i<a.size();i++) scanf("%d",&a[i])
 #define all(a)                      a.begin(), a.end()
 #define WHILE(n)					while(n--)
-#define INF                         (int)1e9
+#define INF                         (int)100000
 #define pb                          push_back
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
 template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
-long long int cunt=0;
-void MERGE(std::vector<int>& v,std::vector<int>& a,std::vector<int>& b){
-	int i=0,j=0,k=0;
-	while(i<a.size()&& j<b.size())
-	{
-		if(a[i]<=b[j])
-		{
-			v[k]=a[i];
-			i++;
+template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; }
+int subArraySumsZero(std::vector<int>& v) {
+	int cunt=0;
+	forall(i,0,v.size()){
+		int sum=0;
+		forall(j,i,v.size()){
+			sum+=v[j];
+			if(sum==0)cunt++;
 		}
-		else{
-			cunt+=a.size()-i;
-			v[k]=b[j];
-			j++;
-		}
-		k++;
 	}
-	while(i<a.size()){
-		v[k]=a[i];
-		i++;
-		k++;
-	}
-	while(j<b.size()){
-		v[k]=b[j];
-		j++;
-		k++;
-	}
-	
+	return cunt;
 }
-void MERGESORT(std::vector<int>& v){
-	if(v.size()<2)return ;
-	int mid=v.size()/2;
-	std::vector<int> l(mid),r(v.size()-mid);
-	for(int i=0;i<mid;i++)l[i]=v[i];
-	for(int i=mid,k=0;i<v.size();i++,k++)r[k]=v[i];
-	MERGESORT(l);
-	MERGESORT(r);
-	MERGE(v,l,r);
-}
-
-
-
 int main(int argc, char const *argv[])
-{	int n;
-	s(n);
+{
+	int n;s(n);
+	string s;cin>>s;
 	std::vector<int> v(n);
-	forall(i,0,n)s(v[i]);	
-	MERGESORT(v);
-	cout<<cunt;
+	
+	forall(i,0,n){
+		if(s[i]=='L')
+		{
+			v[i]=INF;
+			//Map[v[i]]++;	
+		}
+		else if(s[i]=='R'){
+			v[i]=-INF;
+		}
+		else if(s[i]=='U'){
+			v[i]=1;
+		}
+		else if(s[i]=='D'){
+			v[i]=-1;
+		}
+	}
+	//forall(i,0,v.size())cout<<v[i]<<" ";
+	cout<<subArraySumsZero(v);
+	
 	return 0;
+
 }

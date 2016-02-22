@@ -14,17 +14,37 @@ using namespace std;
 #define pb                          push_back
 #define minimum(a)					*min_element(a.begin(), a.end())
 #define maximum(a)					*max_element(a.begin(), a.end())
-template<typename T> inline bool chkmin(T &a, const T &b) { return a > b ? a = b, 1 : 0; }
-template<typename T> inline bool chkmax(T &a, const T &b) { return a < b ? a = b, 1 : 0; } 
+#define ; ;
+struct Friend
+{
+	char G;
+	int left;
+	int right;
+};
 int main(int argc, char const *argv[])
-// {
-// 	int n;
-// 	s(n);
-// 	std::vector<int> v(n);
-// 	forall(i,0,n)s(v[i]);
-// 	int i=0;
-// 	for(;i<n-1;i++)
-// 		if(v[i]<v[i+1])break;
-// 	cout<<n-i;	
-// 	return 0;
-// }
+{
+	int t;
+	s(t);
+	std::vector<Friend> v(t);
+	forall(i,0,t)
+		cin>>v[i].G>>v[i].left>>v[i].right;
+	int Max=0;
+	forall(i,1,367){
+		int cunt,M1=0,M2=0;
+		forall(j,0,t)
+		{
+			if(v[j].left<=i && v[j].right>=i)
+			{
+				if(v[j].G=='M')
+					M1++;
+				else
+					M2++;
+			}
+		}
+		cunt=2*min(M1,M2);
+		
+		if(Max<cunt)Max=cunt;
+	}
+	cout<<Max;
+	return 0;
+}
