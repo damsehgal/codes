@@ -1,57 +1,80 @@
-#include <bits/stdc++.h>
-using namespace std;
-bool check(string s,std::vector<string> v){
-	for(int i=0;i<v.size();i++){
-		if(v[i]==s)return true;
-	}
-	return false;
-}
-bool SinArrray(std::vector<string> v,string s){
-	for(int i=0;i<s.length();i++){
-		if(s[i]=='a')
-		{
-			s[i]='b';
-			//cout<<s<<" ";
-			if(check(s,v))return true;
-			s[i]='c';
-			if(check(s,v))return true;
-			s[i]='a';
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <vector>
+#include <set>
+#include <map>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+#include <stack>
+#include <iomanip>
 
-		}
-		else if(s[i]=='b'){
-		
-			s[i]='a';
-			if(check(s,v))return true;
-			s[i]='c';
-			if(check(s,v))return true;
-			s[i]='b';
-		}
-		else
-		{
-			s[i]='b';
-			if(check(s,v))return true;
-			s[i]='a';
-			if(check(s,v))return true;
-			s[i]='c';
-		}
-	}
-	return false;
-}
-int main(int argc, char const *argv[])
-{
-	int n,m;
-	cin>>n>>m;
-	std::vector<string> v(n);
-	for(int i=0;i<n;i++)cin>>v[i];
-	while(m--){
-		string s;
-		cin>>s;
-		
-			if(SinArrray(v,s))
-				cout<<"YES\n";
-			else 
-				cout<<"NO\n";
-		
-	}	
-	return 0;
+#define FOR(i,x,y) for(int i =(int)(x); i<(int)(y); i++)
+#define REP(i, N) FOR(i, 0, N)
+#define SZ(x) (int)x.size()
+#define BASE 137
+#define MOD 1000000007
+
+using namespace std;
+
+typedef vector<int> vin;
+typedef pair<int, int> pii;
+typedef vector<pair<int, int>> vpii;
+typedef vector<vector<int>> vvin;
+typedef unsigned long long ULL;
+typedef long long LL;
+
+const int maxn = 1000000;
+map<ULL, string> vals;
+ULL powers[maxn];
+
+int n, m;
+
+int main () {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+
+    powers[0] = 1;
+    REP (i, maxn-1) {
+        powers[i+1] = BASE*powers[i];
+    }
+
+    cin >> n >> m;
+    REP (i, n) {
+        ULL hash = 0;
+        string s; cin >> s;
+        REP (j, SZ(s)) hash += powers[j]*((int)s[j]);
+        vals[hash] = s;
+    }
+
+    REP (i, m) {
+        ULL hash = 0;
+        string s; cin >> s;
+        REP (j, SZ(s)) hash += powers[j]*((int)s[j]);
+
+        bool found = false;
+        REP (j, SZ(s)) {
+            ULL chash = hash - powers[j]*((int)s[j]);
+            REP (k, 3) {
+                char c = 'a' + k;
+                if (c == s[j]) continue;
+                ULL hv = powers[j]*((int) c);
+                if (vals.find(chash+hv) != vals.end()) {
+                    string ss = vals[chash+hv];
+                    int diff = 0;
+                    REP (z, SZ(ss)) {
+                        if (ss[z] != s[z]) diff++;
+                    }
+                    if (diff == 1) {
+                        found=true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (found) cout << "YES\n";
+        else cout << "NO\n";
+    }
+    return 0;
 }
