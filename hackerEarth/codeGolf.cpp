@@ -1,0 +1,2 @@
+#include<bits/stdc++.h>
+using namespace std;typedef string Z;Z _[]={"one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};Z X[]={"twen","thir","for","fif","six","seven","eigh","nine"};main(){int n;cin>>n;if(!n)cout<<"zero";if(n<20 && n)cout<<_[n-1];else cout<<X[n/10-2]<<"ty-"<<_[n%10-1];}

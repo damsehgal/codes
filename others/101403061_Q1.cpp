@@ -8,13 +8,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 void swap(int &a ,int &b){
-	//FUNCTION TO SWAP 2 INTEGERS
 	int temp=a;
 	a=b;
 	b=temp;
 }
 int binary(std::vector<int> v,int low,int high,int x){
-	//RECURSIVE BINARY SEARCH
 	int mid=low+(high-low)/2;
 	if(v[mid]==x)return mid;
 	if(low >high)return -1;
@@ -22,20 +20,12 @@ int binary(std::vector<int> v,int low,int high,int x){
 	else return(binary(v,low,mid-1,x));
 }
 int LINEAR(std::vector<int>& v,int x){
-	//LINEAR SEARCH ->RETURNS INDEX OF FIRST OCCURENCE OF A NUMBER UNCOMMENT
-	//LINES 27-30 TO RETURN INDEX OF LAST OCCUREBCE
-	/*for(int index=v.size()-1;index>=0;index--){
-		if(v[index]==x)return index;
-	}
-	return -1;*/
 	for(int index=0;index<v.size();index++){
 		if(v[index]==x)return index;
 	}
 	return -1;
 }
 void buuble(std::vector<int>& a){
-	//FUNCTION TO PERFORM BUBBLE SORT IN INCREASING ORDDER
-	//AND TO DISPLAY NUMBER OF SWAPS AND NUMBER OF COMPARISONS
 	int size=a.size();
 	int countSwaps=0,comparisons=0;
 	for(int i=0;i<size-1;i++){
@@ -50,12 +40,10 @@ void buuble(std::vector<int>& a){
 		}
 		if(!flag)break;
 	}
-	cout<<"No of Swaps="<<countSwaps<<"No of comparisons="<<comparisons<<"\n";
 }
 
 int NoOfComparisonsSelection=0;
 int MIN(std::vector<int>& v,int low){
-	//RETURNS INDEX OF MINIMUNM NUMBER IN ARRAY.
 	int min=low;
 	for (int i = low+1; i < v.size(); ++i){
 		NoOfComparisonsSelection++;
@@ -67,16 +55,12 @@ int MIN(std::vector<int>& v,int low){
 	return min;
 }
 void selection(std::vector<int>& a){
-	//FUNCTION TO PERFORM SELECTION SORT IN INCREASING ORDDER
-	//AND TO DISPLAY NUMBER OF SWAPS AND NUMBER OF COMPARISONS
 	int NoOfSwaps=0;
 	for (int i = 0; i < a.size()-1; ++i)
 	{
 		swap(a[MIN(a,i)],a[i]);
 		NoOfSwaps++;
 	}
-	cout<<"NoOfSwaps= "<<NoOfSwaps;
-	cout<<"NoOfComparisonsSelection= "<<NoOfComparisonsSelection<<"\n";
 }
 void insertion(std::vector<int>& v){
 	//FUNCTION TO PERFORM INSERTION SORT IN INCREASING ORDDER
@@ -94,8 +78,6 @@ void insertion(std::vector<int>& v){
 	cout<<"NoOfSwaps= "<<NoOfSwaps<<"NoOfComparisons= "<<NoOfComparisons<<"\n";
 }
 void shellSort(std::vector<int>& V){
-	//FUNCTION TO PERFORM SHELL SORT IN INCREASING ORDDER
-	//AND TO DISPLAY NUMBER OF SWAPS AND NUMBER OF COMPARISONS
 	int h, i, j, t,n=V.size();
 	for (h = n; h /= 2;) {
 		for (i = h; i < n; i++) {
